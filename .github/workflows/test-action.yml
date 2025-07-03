@@ -17,12 +17,16 @@ jobs:
 
       - name: Deploy to Instance 1 (local self-hosted runner)
         run: |
-          echo "Moving to the project folder"
+          echo "Starting deployment at:" $(date)
           cd /home/ec2-user/testloadbalancer
-          echo "Obteniendo cambios de git"
+          echo "Cleaning up local changes"
+          git reset --hard HEAD
+          git clean -fd
+          echo "Pulling latest changes"
           git pull origin main
-          echo "reiniciando servicio"
+          echo "Restarting service"
           sudo systemctl restart loadmodules.service
+          echo "Finished at:" $(date)
 
       # - name: Deploy to Instance 2 (remote over SSH)
       #   uses: appleboy/ssh-action@v1.0.0
