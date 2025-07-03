@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send('Hello from Ubuntu EC2! with the runner restarting runner');
+  res.send('Hello from Ubuntu EC2! with the runner r');
 });
 
 app.listen(port, () => {
