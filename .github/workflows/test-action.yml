@@ -15,6 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Check target directory
+        run: |
+          ls -la /home/ec2-user/testloadbalancer
+
       - name: Moving to the project folder
         run: |
           echo "Starting deployment at:" $(date)
