@@ -1,16 +1,12 @@
-name: Deploy to Both Instances via SSH
+name: Test Runner
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+on: [push]
 
 jobs:
   test:
-    runs-on: [self-hosted, Linux]
+    runs-on: self-hosted
     steps:
-      - name: Say hello
-        run: echo "Hello from the self-hosted runner"
+      - run: echo "Hello from the self-hosted runner!"
 
 # jobs:
 #   deploy:
