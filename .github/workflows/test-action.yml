@@ -15,16 +15,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy to Instance 1 (local self-hosted runner)
+      - name: Moving to the project folder
         run: |
           echo "Starting deployment at:" $(date)
           cd /home/ec2-user/testloadbalancer
+
+      - name: Cleaning up local changes
+        run: |
           echo "Cleaning up local changes"
           git reset --hard HEAD
           git clean -fd
-          echo "Pulling latest changes"
+
+      - name: Pulling the lastest changes
+        run: |
           git pull origin main
-          echo "Restarting service"
+
+      - name: Restarting the service
+        run: |
           sudo systemctl restart testloadbalancer.service
           echo "Finished at:" $(date)
 
