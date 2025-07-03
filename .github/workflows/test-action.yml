@@ -19,21 +19,25 @@ jobs:
         run: |
           echo "Starting deployment at:" $(date)
           cd /home/ec2-user/testloadbalancer
+        working-directory: /home/ec2-user/testloadbalancer
 
       - name: Cleaning up local changes
         run: |
           echo "Cleaning up local changes"
           git reset --hard HEAD
           git clean -fd
+        working-directory: /home/ec2-user/testloadbalancer
 
       - name: Pulling the lastest changes
         run: |
           git pull origin main
+        working-directory: /home/ec2-user/testloadbalancer
 
       - name: Restarting the service
         run: |
           sudo systemctl restart testloadbalancer.service
           echo "Finished at:" $(date)
+        working-directory: /home/ec2-user/testloadbalancer
 
       # - name: Deploy to Instance 2 (remote over SSH)
       #   uses: appleboy/ssh-action@v1.0.0
