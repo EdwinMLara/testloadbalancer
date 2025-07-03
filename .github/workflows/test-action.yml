@@ -3,45 +3,53 @@ name: Deploy to Both Instances via SSH
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions: 
   contents: write
 
 jobs:
-  deploy:
+  test:
     runs-on: self-hosted
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Say hello
+        run: echo "Hello from the self-hosted runner"
 
-      - name: Check target directory
-        run: |
-          ls -la /home/ec2-user/testloadbalancer
+# jobs:
+#   deploy:
+#     runs-on: self-hosted
 
-      - name: Moving to the project folder
-        run: |
-          echo "Starting deployment at:" $(date)
-          cd /home/ec2-user/testloadbalancer
-        working-directory: /home/ec2-user/testloadbalancer
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
 
-      - name: Cleaning up local changes
-        run: |
-          echo "Cleaning up local changes"
-          git reset --hard HEAD
-          git clean -fd
-        working-directory: /home/ec2-user/testloadbalancer
+#       - name: Check target directory
+#         run: |
+#           ls -la /home/ec2-user/testloadbalancer
 
-      - name: Pulling the lastest changes
-        run: |
-          git pull origin main
-        working-directory: /home/ec2-user/testloadbalancer
+#       - name: Moving to the project folder
+#         run: |
+#           echo "Starting deployment at:" $(date)
+#           cd /home/ec2-user/testloadbalancer
+#         working-directory: /home/ec2-user/testloadbalancer
 
-      - name: Restarting the service
-        run: |
-          sudo systemctl restart testloadbalancer.service
-          echo "Finished at:" $(date)
-        working-directory: /home/ec2-user/testloadbalancer
+#       - name: Cleaning up local changes
+#         run: |
+#           echo "Cleaning up local changes"
+#           git reset --hard HEAD
+#           git clean -fd
+#         working-directory: /home/ec2-user/testloadbalancer
+
+#       - name: Pulling the lastest changes
+#         run: |
+#           git pull origin main
+#         working-directory: /home/ec2-user/testloadbalancer
+
+#       - name: Restarting the service
+#         run: |
+#           sudo systemctl restart testloadbalancer.service
+#           echo "Finished at:" $(date)
+#         working-directory: /home/ec2-user/testloadbalancer
 
       # - name: Deploy to Instance 2 (remote over SSH)
       #   uses: appleboy/ssh-action@v1.0.0
