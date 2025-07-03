@@ -25,7 +25,7 @@ jobs:
           echo "Pulling latest changes"
           git pull origin main
           echo "Restarting service"
-          sudo systemctl restart loadmodules.service
+          sudo systemctl restart testloadbalancer.service
           echo "Finished at:" $(date)
 
       # - name: Deploy to Instance 2 (remote over SSH)
@@ -36,5 +36,6 @@ jobs:
       #     key: ${{ secrets.KEY_TO_INSTANCE2 }}
       #     script: |
       #       cd /home/ec2-user/testloadbalancer
+      
       #       git pull origin main
       #       sudo systemctl restart testloadbal.service
