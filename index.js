@@ -3,7 +3,7 @@ const app = express();
 const port = 80;
 
 app.get('/', (req, res) => {
-  res.send('Hello from Ubuntu EC2!');
+  res.send('Hello from Ubuntu EC2! the actions work fine');
 });
 
 app.listen(port, () => {

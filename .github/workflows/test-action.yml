@@ -16,18 +16,26 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Deploy to Instance 1 (local self-hosted runner)
-        run: |
-          cd /home/ec2-user/testloadbalancer
-          git pull origin main
-          sudo systemctl restart testloadbalancer.service
+        working-directory: /home/ec2-user/testloadbalancer
+        run: cd /home/ec2-user/testloadbalancer
+
+      - name: Obteniendo cambios de git
+        working-directory: /home/ec2-user/testloadbalancer
+        run: git pull origin main
+          
+      - name: reiniciando servicio 1
+        working-directory: /home/ec2-user/testloadbalancer
+        run: sudo systemctl restart testloadbalancer.service
+          
+          
 
       - name: Deploy to Instance 2 (remote over SSH)
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.INSTANCE_2_IP }}
-          username: ec2-user
-          key: ${{ secrets.KEY_TO_INSTANCE2 }}
-          script: |
-            cd /home/ec2-user/testloadbalancer
-            git pull origin main
-            sudo systemctl restart testloadbalancer.service
+            host: ${{ secrets.INSTANCE_2_IP }}
+            username: ec2-user
+            key: ${{ secrets.KEY_TO_INSTANCE2 }}
+            script: |
+                cd /home/ec2-user/testloadbalancer
+                git pull origin main
+                sudo systemctl restart testloadbalancer.service
