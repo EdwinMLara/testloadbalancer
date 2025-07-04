@@ -1,13 +1,21 @@
-# Create a folder
-$ mkdir actions-runner && cd actions-runnerCopied! # Download the latest runner package
-$ curl -o actions-runner-linux-x64-2.325.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.325.0/actions-runner-linux-x64-2.325.0.tar.gzCopied! # Optional: Validate the hash
-$ echo "5020da7139d85c776059f351e0de8fdec753affc9c558e892472d43ebeb518f4  actions-runner-linux-x64-2.325.0.tar.gz" | shasum -a 256 -cCopied!# Extract the installer
-$ tar xzf ./actions-runner-linux-x64-2.325.0.tar.gz
+# crear el runner 
+# crear llaves asimetricas en la instancia 1
+ssh-keygen -t rsa -b 4096 -C "github-actions" -f ~/.ssh/id_rsa
 
+# mostrar la llave publica en primera instancia
+cat ~/.ssh/id_rsa.pub
 
-# Create the runner and start the configuration experience
-$ ./config.sh --url https://github.com/EdwinMLara/testloadbalancer --token AB5PXY3XOYEYAXQF4FDF65TIMXY5WCopied!# Last step, run it!
-$ ./run.sh
+# copiar la llave publica de las llaves asimetricas en la segunda instancias 
 
-# Use this YAML in your workflow file for each job
-runs-on: self-hosted
+echo "paste-your-public-key-content-here" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
+
+#regresar los permisos 
+
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+
+# probar en la primer instancia
+
+# agregar la llave privada en las secret de github y ip de la segunda instancia 
