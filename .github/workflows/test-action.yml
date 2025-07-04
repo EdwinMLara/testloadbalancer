@@ -42,6 +42,6 @@ jobs:
           key: ${{ secrets.KEY_TO_INSTANCE2 }}
           script: |
             cd /home/ec2-user/testloadbalancer
-      
+            git reset --hard
             git pull origin main
             sudo systemctl restart testloadbal.service
