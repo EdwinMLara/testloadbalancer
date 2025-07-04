@@ -44,4 +44,4 @@ jobs:
             cd /home/ec2-user/testloadbalancer
             git reset --hard
             git pull origin main
-            sudo systemctl restart testloadbal.service
+            sudo systemctl restart testloadbalancer.service
